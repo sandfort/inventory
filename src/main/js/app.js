@@ -26,7 +26,7 @@ class EquipmentSetList extends React.Component {
     render() {
         return (
             <ul>
-                {this.props.sets.map(set => (<EquipmentSet set={set}/>))}
+                {this.props.sets.map(set => (<EquipmentSet key={set.id} set={set}/>))}
             </ul>
         )
     }
