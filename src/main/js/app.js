@@ -11,30 +11,36 @@ class App extends React.Component {
     componentDidMount() {
         client({method: 'GET', path: '/sets'})
             .done(response => {
-                console.log(response);
                 this.setState({equipmentSets: response.entity.equipmentSets})
             })
     }
 
     render() {
         return (
-            <EquipmentSetList sets={this.state.equipmentSets} />
-        );
+            <EquipmentSetList sets={this.state.equipmentSets}/>
+        )
     }
 }
 
 class EquipmentSetList extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <ul>
-                {this.props.sets.map(set => (<li>{set.name}</li>))}
+                {this.props.sets.map(set => (<EquipmentSet set={set}/>))}
             </ul>
         )
     }
 }
 
+class EquipmentSet extends React.Component {
+    render() {
+        return (
+            <li>{this.props.set}</li>
+        )
+    }
+}
+
 ReactDOM.render(
-    <App />,
+    <App/>,
     document.getElementById('react')
 );
