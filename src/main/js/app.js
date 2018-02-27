@@ -11,7 +11,8 @@ class App extends React.Component {
     componentDidMount() {
         client({method: 'GET', path: '/sets'})
             .done(response => {
-                this.setState({equipmentSets: response.equipmentSets})
+                console.log(response);
+                this.setState({equipmentSets: response.entity.equipmentSets})
             })
     }
 
@@ -24,9 +25,10 @@ class App extends React.Component {
 
 class EquipmentSetList extends React.Component {
     render() {
+        console.log(this.props);
         return (
             <ul>
-                {this.props.equipmentSets.forEach(set => (<li>{set.name}</li>))}
+                {this.props.sets.map(set => (<li>{set.name}</li>))}
             </ul>
         )
     }
@@ -35,4 +37,4 @@ class EquipmentSetList extends React.Component {
 ReactDOM.render(
     <App />,
     document.getElementById('react')
-)
+);
