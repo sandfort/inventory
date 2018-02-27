@@ -8,8 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>equipmentSet</name>
-	<description>Inventory management for d20 SRD</description>
+	<name>inventory</name>
+	<description>An inventory management application</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
