@@ -34,4 +34,18 @@ class InMemoryEquipmentPieceRepository : EquipmentPieceRepository {
     override fun delete(id: Int) {
         items.removeIf { it.id == id }
     }
+
+    fun seed() {
+        create("Leather Headgear", "", listOf())
+        create("Leather Vest", "", listOf())
+        create("Leather Gloves", "", listOf())
+        create("Leather Belt", "", listOf())
+        create("Leather Trousers", "", listOf())
+
+        create("Jaggi Cap", "", listOf())
+        create("Jaggi Vest", "", listOf())
+        create("Jaggi Guards", "", listOf())
+        create("Jaggi Coat", "", listOf())
+        create("Jaggi Leggings", "", listOf())
+    }
 }

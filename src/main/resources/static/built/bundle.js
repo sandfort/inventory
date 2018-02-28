@@ -66,7 +66,10 @@
 	
 	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
-	        _this.state = { equipmentSets: [] };
+	        _this.state = {
+	            equipmentPieces: [],
+	            equipmentSets: []
+	        };
 	        return _this;
 	    }
 	
@@ -75,6 +78,10 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 	
+	            client({ method: 'GET', path: '/equips' }).done(function (response) {
+	                _this2.setState({ equipmentPieces: response.entity.equipmentPieces });
+	            });
+	
 	            client({ method: 'GET', path: '/sets' }).done(function (response) {
 	                _this2.setState({ equipmentSets: response.entity.equipmentSets });
 	            });
@@ -82,7 +89,12 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return React.createElement(EquipmentSetList, { sets: this.state.equipmentSets });
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(EquipmentPieceList, { equips: this.state.equipmentPieces }),
+	                React.createElement(EquipmentSetList, { sets: this.state.equipmentSets })
+	            );
 	        }
 	    }]);
 	
@@ -102,11 +114,20 @@
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
-	                'ul',
+	                'div',
 	                null,
-	                this.props.sets.map(function (set) {
-	                    return React.createElement(EquipmentSet, { key: set.id, set: set });
-	                })
+	                React.createElement(
+	                    'h1',
+	                    null,
+	                    'Equipment Sets'
+	                ),
+	                React.createElement(
+	                    'div',
+	                    null,
+	                    this.props.sets.map(function (set) {
+	                        return React.createElement(EquipmentSet, { key: set.id, set: set });
+	                    })
+	                )
 	            );
 	        }
 	    }]);
@@ -127,14 +148,135 @@
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
-	                'li',
+	                'div',
 	                null,
-	                this.props.set
+	                React.createElement(
+	                    'table',
+	                    null,
+	                    React.createElement(
+	                        'thead',
+	                        null,
+	                        React.createElement(
+	                            'tr',
+	                            null,
+	                            React.createElement(
+	                                'th',
+	                                null,
+	                                'Slot'
+	                            ),
+	                            React.createElement(
+	                                'th',
+	                                null,
+	                                'Name'
+	                            ),
+	                            React.createElement(
+	                                'th',
+	                                null,
+	                                'Skill Modifiers'
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'tbody',
+	                        null,
+	                        React.createElement(EquipmentPieceRow, { slot: 'head', equip: this.props.set.head }),
+	                        React.createElement(EquipmentPieceRow, { slot: 'chest', equip: this.props.set.chest }),
+	                        React.createElement(EquipmentPieceRow, { slot: 'arms', equip: this.props.set.arms }),
+	                        React.createElement(EquipmentPieceRow, { slot: 'waist', equip: this.props.set.waist }),
+	                        React.createElement(EquipmentPieceRow, { slot: 'legs', equip: this.props.set.legs }),
+	                        React.createElement(EquipmentPieceRow, { slot: 'talisman', equip: this.props.set.talisman })
+	                    )
+	                )
 	            );
 	        }
 	    }]);
 	
 	    return EquipmentSet;
+	}(React.Component);
+	
+	var EquipmentPieceRow = function (_React$Component4) {
+	    _inherits(EquipmentPieceRow, _React$Component4);
+	
+	    function EquipmentPieceRow() {
+	        _classCallCheck(this, EquipmentPieceRow);
+	
+	        return _possibleConstructorReturn(this, (EquipmentPieceRow.__proto__ || Object.getPrototypeOf(EquipmentPieceRow)).apply(this, arguments));
+	    }
+	
+	    _createClass(EquipmentPieceRow, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'tr',
+	                null,
+	                React.createElement(
+	                    'td',
+	                    null,
+	                    this.props.slot
+	                ),
+	                React.createElement(
+	                    'td',
+	                    null,
+	                    this.props.equip.name
+	                ),
+	                React.createElement(
+	                    'td',
+	                    null,
+	                    'n/a'
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return EquipmentPieceRow;
+	}(React.Component);
+	
+	var EquipmentPieceList = function (_React$Component5) {
+	    _inherits(EquipmentPieceList, _React$Component5);
+	
+	    function EquipmentPieceList() {
+	        _classCallCheck(this, EquipmentPieceList);
+	
+	        return _possibleConstructorReturn(this, (EquipmentPieceList.__proto__ || Object.getPrototypeOf(EquipmentPieceList)).apply(this, arguments));
+	    }
+	
+	    _createClass(EquipmentPieceList, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'ul',
+	                null,
+	                this.props.equips.map(function (equip) {
+	                    return React.createElement(EquipmentPiece, { key: equip.name, equip: equip });
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return EquipmentPieceList;
+	}(React.Component);
+	
+	var EquipmentPiece = function (_React$Component6) {
+	    _inherits(EquipmentPiece, _React$Component6);
+	
+	    function EquipmentPiece() {
+	        _classCallCheck(this, EquipmentPiece);
+	
+	        return _possibleConstructorReturn(this, (EquipmentPiece.__proto__ || Object.getPrototypeOf(EquipmentPiece)).apply(this, arguments));
+	    }
+	
+	    _createClass(EquipmentPiece, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'li',
+	                null,
+	                this.props.equip.name
+	            );
+	        }
+	    }]);
+	
+	    return EquipmentPiece;
 	}(React.Component);
 	
 	ReactDOM.render(React.createElement(App, null), document.getElementById('react'));
