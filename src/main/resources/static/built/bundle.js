@@ -76,7 +76,6 @@
 	            var _this2 = this;
 	
 	            client({ method: 'GET', path: '/sets' }).done(function (response) {
-	                console.log(response);
 	                _this2.setState({ equipmentSets: response.entity.equipmentSets });
 	            });
 	        }
@@ -102,22 +101,40 @@
 	    _createClass(EquipmentSetList, [{
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.props);
 	            return React.createElement(
 	                'ul',
 	                null,
 	                this.props.sets.map(function (set) {
-	                    return React.createElement(
-	                        'li',
-	                        null,
-	                        set.name
-	                    );
+	                    return React.createElement(EquipmentSet, { key: set.id, set: set });
 	                })
 	            );
 	        }
 	    }]);
 	
 	    return EquipmentSetList;
+	}(React.Component);
+	
+	var EquipmentSet = function (_React$Component3) {
+	    _inherits(EquipmentSet, _React$Component3);
+	
+	    function EquipmentSet() {
+	        _classCallCheck(this, EquipmentSet);
+	
+	        return _possibleConstructorReturn(this, (EquipmentSet.__proto__ || Object.getPrototypeOf(EquipmentSet)).apply(this, arguments));
+	    }
+	
+	    _createClass(EquipmentSet, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'li',
+	                null,
+	                this.props.set
+	            );
+	        }
+	    }]);
+	
+	    return EquipmentSet;
 	}(React.Component);
 	
 	ReactDOM.render(React.createElement(App, null), document.getElementById('react'));
